@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Generate random PDFs entirely in your browser. Nothing is uploaded and nothing is stored."
+    />
+    <title>Random PDF Studio</title>
+    <meta name="theme-color" content="#0a0e13" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237fe3bb'/%3E%3Cpath d='M20 14h17l7 7v29H20z' fill='%230a0e13'/%3E%3Cpath d='M37 14v8h8z' fill='%2345c79a'/%3E%3Cpath d='M25 30h14M25 37h14M25 44h9' stroke='%237fe3bb' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <p class="eyebrow">Runs entirely in this tab</p>
+        <h1>Random PDF <em>Studio</em></h1>
+        <p class="lede">
+          Pick how many documents you need. Each one gets a freshly written title and body,
+          capped at 500 words, and lands in your downloads folder.
+        </p>
+      </header>
+
+      <section class="panel" aria-labelledby="generate-heading">
+        <h2 id="generate-heading" class="sr-only">Generate PDFs</h2>
+
+        <form id="generate-form" novalidate>
+          <div class="panel-top">
+            <label class="field-label" for="count">How many PDFs?</label>
+            <span class="pill">Max 500 words each</span>
+          </div>
+
+          <div class="controls">
+            <div class="stepper">
+              <button type="button" class="step" data-step="-1" aria-label="Decrease count">
+                &minus;
+              </button>
+              <input
+                id="count"
+                name="count"
+                type="number"
+                inputmode="numeric"
+                min="1"
+                max="25"
+                step="1"
+                value="3"
+                aria-describedby="count-help"
+              />
+              <button type="button" class="step" data-step="1" aria-label="Increase count">
+                +
+              </button>
+            </div>
+
+            <div class="chips" role="group" aria-label="Quick amounts">
+              <button type="button" class="chip" data-count="1">1</button>
+              <button type="button" class="chip" data-count="3">3</button>
+              <button type="button" class="chip" data-count="5">5</button>
+              <button type="button" class="chip" data-count="10">10</button>
+            </div>
+
+            <button type="submit" class="primary" id="submit-btn">
+              <span class="btn-label">Generate &amp; download</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <p class="help" id="count-help">
+            Between 1 and 25. A single PDF downloads directly; several arrive together as one ZIP.
+          </p>
+          <p class="error" id="error" role="alert" hidden></p>
+        </form>
+      </section>
+
+      <section class="results" id="results" hidden aria-live="polite">
+        <header class="results-head">
+          <div>
+            <h2 id="results-title">Ready</h2>
+            <p class="results-sub" id="results-sub"></p>
+          </div>
+          <button type="button" class="ghost" id="download-zip" hidden>
+            Download ZIP again
+          </button>
+        </header>
+        <ul class="doc-list" id="doc-list"></ul>
+      </section>
+
+      <section class="notes" aria-label="How it works">
+        <article class="note">
+          <h3>Nothing is uploaded</h3>
+          <p>
+            Every PDF is assembled from scratch in this tab's memory. There is no server, no
+            account, and no network request carrying your documents.
+          </p>
+        </article>
+        <article class="note">
+          <h3>Nothing is stored</h3>
+          <p>
+            Files go straight to your downloads folder. Close or refresh the page and the
+            in-memory copies vanish — there is no copy left behind to delete.
+          </p>
+        </article>
+        <article class="note">
+          <h3>Always under 500 words</h3>
+          <p>
+            The word count includes the title. If a draft runs long, sentences are trimmed
+            before the PDF is written.
+          </p>
+        </article>
+      </section>
+
+      <footer class="footer">
+        <span>Random PDF Studio</span>
+        <span aria-hidden="true">·</span>
+        <span>No dependencies, no tracking, no storage</span>
+      </footer>
+    </main>
+
+    <script src="app/content.js"></script>
+    <script src="app/pdf.js"></script>
+    <script src="app/zip.js"></script>
+    <script src="app/main.js"></script>
+  </body>
+</html>
